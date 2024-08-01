@@ -2,4 +2,4 @@ Perf
 | where ObjectName == "PhysicalDisk" and InstanceName == "_Total" and CounterName == "Avg. Disk Queue Length"
 | extend TimeGenerated_IST = TimeGenerated + 5h + 30m // Adjusts for IST, which is UTC+5:30
 | summarize max(CounterValue) by Computer, bin(TimeGenerated_IST, 1m)
-| render timechart
+| render timechart with (title = "Average Disk Queue Length", xtitle = "Time", ytitle = "Value")
