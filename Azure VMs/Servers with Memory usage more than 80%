@@ -1,0 +1,5 @@
+Perf
+| where ObjectName == "Memory" and CounterName == "% Committed Bytes In Use"
+| summarize AvgMemoryUsage = avg(CounterValue) by Computer, bin(TimeGenerated, 15m)
+| where AvgMemoryUsage > 80
+| render table
