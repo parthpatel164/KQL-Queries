@@ -1,0 +1,6 @@
+// Find servers having CPU usage higher than 80%
+Perf
+| where  ObjectName == "Processor Information" and CounterName == "% Processor Time" and InstanceName == "_Total"
+| summarize AggregatedValue = avg(CounterValue) by Computer, bin(TimeGenerated, 15m)
+| where AggregatedValue > 80
+| render table
